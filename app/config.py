@@ -6,6 +6,9 @@ load_dotenv()
 
 class Settings(BaseSettings):
     ENV: str = "local"
+    SUPABASE_URL: str
+    SUPABASE_KEY: str
+
 
     class Config():
         env_file = ".env"
