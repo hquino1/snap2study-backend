@@ -20,6 +20,7 @@ def get_sets(supabase: Client, user_id):
     return flashcards.data, practiceExams.data
 
 def create_set(supabase: Client, userId, title, studyMethod, content):
+    studyMap = { "Flashcards": "Flashcards", "PracticeExam": "ExamQuestions" }
 
     set = {
         "title": title,
@@ -32,33 +33,20 @@ def create_set(supabase: Client, userId, title, studyMethod, content):
         .insert(set)
         .execute()
     )
-    if not response.data or len(response.data) == 0:
-        print("Failed to insert set:", response)
-        return None
+    
     setId = response.data[0]["set_id"]
 
     for card in content:
         card["set_id"] = setId
-    print("Content after adding set_id: ", content)
-    match studyMethod:
 
-        case "Flashcards":
-            flashcards = (
-                supabase.from_("Flashcards")
-                .insert(content)
-                .execute()
-            )
+    studyContent = (
+        supabase.from_(studyMap[studyMethod])
+        .insert(content)
+        .execute()
+    )
 
-            return flashcards.data
-        
-        case "PracticeExam":
-            practiceExam = (
-                supabase.from_("ExamQuestions")
-                .insert(content)
-                .execute()
-            )
+    return studyContent.data
 
-            return practiceExam.data
 
 # Individual Set Content
 def get_set_content_by_id(supabase: Client, setId, studyMethod):
