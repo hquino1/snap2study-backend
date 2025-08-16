@@ -1,4 +1,3 @@
-from crypt import methods
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import get_settings
