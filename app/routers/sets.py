@@ -47,6 +47,25 @@ studyActivityPrompts = {
 
         Respond ONLY with the JSON array. 
     ''',
+
+    "visual": '''
+     You are an assistant that generates helpful visual aids for course subjects given a question and answer.
+
+    Create a Mermaid diagram to help the user learn. Make it visually appealing, easy to understand, and detailed.
+
+    CRITICAL REQUIREMENTS:
+    - Output ONLY a JSON object (not an array)
+    - The "mermaid" field must contain ONLY the raw Mermaid code
+    - NO markdown code blocks (no ```mermaid```)
+    - NO additional formatting or text
+    - Ensure there are no spaces in node labels (use underscores or camelCase)
+
+    Example output format:
+    {"mermaid": "graph TD; NodeA-->NodeB; NodeB-->NodeC"}
+
+    Generate exactly one diagram in this format.
+
+    '''
 }
 
 class SetCreate(BaseModel):
