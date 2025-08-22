@@ -99,7 +99,6 @@ def new_set(body: SetCreate, auth: str = Depends(verify_auth)):
         if body.studyMethod not in validStudyMethods or len(body.title) <= 0:
             raise HTTPException(status_code=400, detail=str("Invalid Input"))
             
-        print("Content: ", body.content) 
         content = create_set(
             supabase, user.user.id, body.title, body.studyMethod, body.content
         )
@@ -132,7 +131,6 @@ def set_id_content(body: StudyActivityBody, studyActivity: str, auth: str = Depe
         supabase, user = auth
 
         response = llm_generate(body.model, f"Question: ${body.question}\nAnswer: ${body.answer}", studyActivityPrompts[studyActivity])
-        print("Response: ", response)
         return {"activity_content": response}
 
     except Exception as e:
