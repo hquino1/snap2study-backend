@@ -5,7 +5,17 @@ on: [push, pull_request]
 jobs:
     test:
         runs-on: ubuntu-latest
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          OLLAMA_URL: ${{ secrets.OLLAMA_URL }}
+          ENV: ${{ secrets.ENV }}
 
+        services:
+          ollama:
+            image: ollama/ollama
+            ports:
+              - 11434:11434
         steps:
           - name: Checkout repo
             uses: actions/checkout@v4
