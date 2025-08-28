@@ -21,6 +21,9 @@ jobs:
           - name: Checkout repo
             uses: actions/checkout@v4
 
+          - name: Install ollama CLI
+            run: curl -fsSL https://ollama.ai/install.sh | sh
+
           - name: Install ollama model
             run: ollama pull mistral:7b-instruct
 
