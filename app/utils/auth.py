@@ -11,13 +11,11 @@ def verify_auth(credentials: HTTPAuthorizationCredentials = Depends(security)):
     try:
         token = credentials.credentials
         client = create_client(
-            settings.SUPABASE_URL, 
+            settings.SUPABASE_URL,
             settings.SUPABASE_KEY,
-            options=ClientOptions(
-                    headers={"Authorization": f"Bearer {token}"}
-                )
-            )
-    
+            options=ClientOptions(headers={"Authorization": f"Bearer {token}"}),
+        )
+
         user = client.auth.get_user(token)
         return client, user
 

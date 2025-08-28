@@ -1,7 +1,6 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import get_settings
-from app.utils.auth import verify_auth
 from app.routers import images
 from app.routers import sets
 
@@ -22,6 +21,7 @@ app.add_middleware(
 app.include_router(images.router)
 app.include_router(sets.router)
 
-@app.get('/')
+
+@app.get("/")
 def test():
-    return {"message": "Hello world!"}
+    return {"message": "Server is runing."}
